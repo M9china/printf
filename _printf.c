@@ -10,7 +10,7 @@ int _printf(const char *format, ...)
 
     while (*format != '\0') {
         if (*format == '%') {
-            format++;   '%'
+            format++;
 
             
             switch (*format) {
