@@ -4,52 +4,48 @@
  * checker - Function to check for format specifiers
  * @format: Pointer to string
  * @symbols: Array of format structure
- * @str: Pointer to args
- * Return: Number of characters printed
+ * @str: pointer to args.
+ * Return: Number of char printed
  */
+
 int checker(const char *format, format_t symbols[], va_list str)
 {
-	int i = 0;
-	int printed_chars = 0;
+	int i = 0, j, outcome, printed_chars = 0;
 
-	while (format && format[i])
+	while (format && (*(format + i)))
 	{
-		if (format[i] == '%')
+		if (*(format + i) == '%')
 		{
-			if (format[i + 1] != '\0')
+			for (j = 0; symbols[j].sign != NULL; j++)
 			{
-				int j = 0;
-				while (symbols[j].sign != NULL)
+				if (*(format + (i + 1)) == symbols[j].sign[0])
 				{
-					if (format[i + 1] == symbols[j].sign[0])
-					{
-						int outcome = symbols[j].fun(str);
-						if (outcome == -1)
-							return -1;
-						printed_chars += outcome;
-						break;
-					}
-					j++;
+					outcome = symbols[j].fun(str);
+					if (outcome == -1)
+						return (-1);
+					printed_chars += outcome;
+					break;
 				}
-				if (symbols[j].sign == NULL && format[i + 1] != ' ')
+			}
+			if (symbols[j].sign == NULL && *(format + (i + 1)) != ' ')
+			{
+				if (*(format + (i + 1)) != '\0')
 				{
-					_putchar(format[i]);
-					_putchar(format[i + 1]);
+					_putstring(*(format + i));
+					_putstring(*(format + (i + 1)));
 					printed_chars += 2;
 				}
-				i++;
+				else
+					return (-1);
 			}
-			else
-				return -1;
+			i += 1;
 		}
 		else
 		{
-			_putchar(format[i]);
+			_putstring(*(format + i));
 			printed_chars++;
 		}
 		i++;
 	}
-
-	return printed_chars;
+	return (printed_chars);
 }
-
