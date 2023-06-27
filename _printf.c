@@ -3,15 +3,14 @@
 
 int _printf(const char *format, ...)
 {
-    int count = 0;
+    int count = 0; 
 
     va_list args;
     va_start(args, format);
 
     while (*format != '\0') {
         if (*format == '%') {
-            format++;
-
+            format++; 
             
             switch (*format) {
                 case 'c': {
@@ -32,14 +31,6 @@ int _printf(const char *format, ...)
                 case '%': {
                     putchar('%');
                     count++;
-                    break;
-                }
-                case 'd':
-                case 'i': {
-                    int num = va_arg(args, int);
-                    printf("%d", num);
-                    int printed_chars = snprintf(NULL, 0, "%d", num);
-                    count += printed_chars;
                     break;
                 }
                 default:
