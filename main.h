@@ -1,42 +1,33 @@
-#ifndef MAIN_H
-#define MAIN_H
-#include <unistd.h>
-#include <stdarg.h>
-#include <stdlib.h>
+#ifndef PRINTF_H
+#define PRINTF_H
 
+#include<stdarg.h>
+#include<unistd.h>
+#include<stddef.h>
+
+void _putchar(char);
 /**
- * struct format - structure of a sgin and its function
- * @sign: format specifiers
- * @fun: function pointer.
- *
+ * struct spec - specifier struct to be called by get_specifier
+ * @sp: specifier character 
+ * @f: pointer to a specifier function
  */
-typedef struct format
+typedef struct spec
 {
-	char *sign;
-	int (*fun)(va_list);
-} format_t;
+	char sp;
+	void (*f)(va_list *list, int *n);
+} spec_op;
+
+void (*get_specifier(char s))(va_list*, int*);
+void spec_c(va_list*, int*);
+void spec_s(va_list*, int*);
+void spec_per(va_list*, int *);
+void spec_d(va_list*, int*);
+void spec_i(va_list*, int*);
+void spec_b(va_list*, int*);
+
+void print_number(int, int*);
+void print_binary(int, int*);
 
 int _printf(const char *format, ...);
-int print_char(va_list);
-int print_percent(va_list);
-int print_string(va_list);
-int _putstring(char);
-int _strlen(char *s);
-int print_number(va_list);
-int checker(const char *format, format_t symbols[], va_list str);
-int print_binary(va_list);
-char *rev_string(char *s);
-unsigned int base_len(unsigned int num, int base);
-char *_memcpy(char *dest, char *src, unsigned int n);
-int unsigned_integer(va_list);
-int print_unsigned_number(unsigned int n);
-int print_octal(va_list);
-int print_hex(va_list);
-int print_Hex(va_list);
-int hex_check(int num, char x);
-int print_reversed(va_list);
-int rot13(va_list);
-int print_address(va_list);
-char *convert(unsigned int num, int base);
 
-#endif
+#endif /* PRINTF_H */
