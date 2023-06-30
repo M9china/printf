@@ -14,40 +14,9 @@ int _printf(const char *format, ...)
     va_list args;
     va_start(args, format);
 
-    int count = 0;
+    int count;
 
-    while (*format != '\0')
-    {
-        if (*format == '%')
-        {
-            format++;
-
-            if (*format == 'S')
-            {
-                char *str = va_arg(args, char*);
-
-                for (; *str != '\0'; str++)
-                {
-                    if (*str < ' ' || *str >= 127)
-                    {
-                        count += printf("\\x%02X", (unsigned char)*str);
-                    }
-                    else
-                    {
-                        putchar(*str);
-                        count++;
-                    }
-                }
-            }
-        }
-        else
-        {
-            putchar(*format);
-            count++;
-        }
-
-        format++;
-    }
+    count = vprintf(format, args);
 
     va_end(args);
 
