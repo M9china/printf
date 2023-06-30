@@ -5,8 +5,8 @@
  * _printf - prints output according to a format
  * @format: the format string to be printed
  *
- * Return: the number of characters printed (excluding the null byte used
- * to end output to strings), or -1 if an error occured
+ * Return: the number of characters printed (on SUCCESS),
+ * or -1 if an error occured
  */
 
 int _printf(const char *format, ...)
