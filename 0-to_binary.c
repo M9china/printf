@@ -24,13 +24,13 @@ int _printf(const char *format, ...) {
 
     while (*format) {
         if (*format == '%') {
-            format++;  // Move to the next character after '%'
+            format++;  
 
             if (*format == 'b') {
                 unsigned int num = va_arg(args, unsigned int);
                 print_binary(num);
             } else {
-                putchar('%');  // Print '%' as it is
+                putchar('%');
                 putchar(*format);
             }
         } else {
