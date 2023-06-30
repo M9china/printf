@@ -12,14 +12,44 @@
 int _printf(const char *format, ...)
 {
     va_list args;
-
-    int count;
-    
     va_start(args, format);
 
-    count = vprintf(format, args);
+    int count = 0;
+
+    while (*format != '\0')
+    {
+        if (*format == '%')
+        {
+            format++;
+
+            if (*format == 'S')
+            {
+                char *str = va_arg(args, char*);
+
+                for (; *str != '\0'; str++)
+                {
+                    if (*str < ' ' || *str >= 127)
+                    {
+                        count += printf("\\x%02X", (unsigned char)*str);
+                    }
+                    else
+                    {
+                        putchar(*str);
+                        count++;
+                    }
+                }
+            }
+        }
+        else
+        {
+            putchar(*format);
+            count++;
+        }
+
+        format++;
+    }
 
     va_end(args);
-    
+
     return count;
 }
