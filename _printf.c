@@ -11,15 +11,15 @@
 
 int _printf(const char *format, ...)
 {
-    va_list args;
+	va_list args;
 
-    int count;
-    
-    va_start(args, format);
+	int count;
 
-    count = vprintf(format, args);
+	va_start(args, format);
 
-    va_end(args);
-    
-    return count;
+	count  = vprintf(format, args);
+
+	va_end(args);
+
+	return (count);
 }
